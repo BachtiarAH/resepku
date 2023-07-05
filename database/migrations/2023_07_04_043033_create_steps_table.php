@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('steps', function (Blueprint $table) {
             $table->id();
-            $table->string('step', 225);
+            $table->integer('order');
+            $table->string('step', 100);
             $table->unsignedBigInteger('recipe_id');
-            $table->foreign('recipe_id')->references('id')->on('recipe');
+            $table->foreign('recipe_id')->references('id')->on('recipes');
             $table->timestamps('');
         });
     }

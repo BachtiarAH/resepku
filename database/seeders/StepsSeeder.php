@@ -18,7 +18,8 @@ class StepsSeeder extends Seeder
         $faker = Factory::create();
         for ($i=0; $i < 10; $i++) { 
             DB::table('steps')->insert([
-                'step'=>$faker->text(),
+                'order'=>$i,
+                'step'=>$faker->text(100),
                 'recipe_id'=>1
             ]);
         }

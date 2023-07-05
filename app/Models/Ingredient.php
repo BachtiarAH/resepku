@@ -11,7 +11,7 @@ class Ingredient extends Model
     protected $tabble = 'ingredients';
     protected $fillable = [
         'ingredient',
-        'receipt_id',
+        'recipe_id',
         
     ];
 

@@ -9,9 +9,11 @@ class Step extends Model
 {
     use HasFactory;
     protected $tabble = 'steps';
+    protected $primaryKey = 'id';
     protected $fillable = [
+        'order',
         'step',
-        'receipt_id',
+        'recipe_id',
     ];
 
     // Define the relationship with receipt

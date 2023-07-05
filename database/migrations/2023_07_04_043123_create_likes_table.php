@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('recipe_id');
             $table->primary(['user_id', 'recipe_id']);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('recipe_id')->references('id')->on('recipe');
+            $table->foreign('recipe_id')->references('id')->on('recipes');
             $table->timestamps('');
         });
     }

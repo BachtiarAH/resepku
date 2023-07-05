@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-default{
+    background: #547794;
+}
+
+.bg-accent{
+    background: #C4C4C4;
+}
+
+.text-default{
+    color: #547794;
+}
+
+.text-accent{
+    color: #C4C4C4;
+}
+
+
+
+.min-height-screen {
+    min-height: 100vh;
+}

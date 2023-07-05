@@ -15,18 +15,20 @@ class RecipeSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        DB::table('recipe')->insert([
-            'title'=> $faker->text(),
+        DB::table('recipes')->insert([
+            'title'=> 'resep masakaj bunda',
             'description' => $faker->paragraph(),
             'user_id'=>1,
-            'thumbnail'=>'asset\thumbnail\image 1.png'
+            'thumbnail'=>'asset\thumbnail\image 1.png',
+            'slug'=>'resep_masakan_bunda'.$faker->asciify('*****')
         ]);
 
-        DB::table('recipe')->insert([
+        DB::table('recipes')->insert([
             'title'=> $faker->text(),
             'description' => $faker->paragraph(),
             'user_id'=>1,
-            'thumbnail'=>'asset\thumbnail\image 1.png'
+            'thumbnail'=>'asset\thumbnail\image 1.png',
+            'slug'=>'resep_masakan_bunda'.$faker->asciify('*****')
         ]);
     }
 }

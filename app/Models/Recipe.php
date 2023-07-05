@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     use HasFactory;
-    protected $tabble = 'receipts';
+    protected $tabble = 'recipe';
     protected $fillable = [
         'title',
         'thumbnail',
         'description',
         'user_id',
+        'slug'
     ];
 
     // Define the relationship with user

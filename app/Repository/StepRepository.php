@@ -14,8 +14,9 @@ class StepRepository extends Repository{
         return $this->step->get();
     }
 
-    public function create($step,$recipe_id) {
+    public function create($step,$recipe_id,$order) {
         return $this->step->create([
+            'order'=>$order,
             'step'=>$step,
             'recipe_id'=>$recipe_id
         ]);
