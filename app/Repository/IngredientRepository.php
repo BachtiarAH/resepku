@@ -14,6 +14,10 @@ class IngredientRepository extends Repository{
         return $this->ingredient->get();
     }
 
+    public function getByRecipe($recipe_id) {
+        return $this->ingredient->where('recipe_id',$recipe_id)->get();
+    }
+
     public function create($ingredient,$recipe_id) {
         return $this->ingredient->create([
             'ingredient'=>$ingredient,

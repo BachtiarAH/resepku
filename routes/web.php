@@ -41,9 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('store',[RecipeController::class,'store'])->name('store');
         });
 
-        Route::get('/{slug}',function ($slug) {
-            dd($slug);
-        })->name('post');
+        Route::get('/{slug}',[RecipeController::class,'detail'])->name('post');
     });
 });
 

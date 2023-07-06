@@ -41,6 +41,10 @@ class RecipeRepository extends Repository
         return DB::table('receipts')->where('id', $id);
     }
 
+    public function getBySLug($slug) {
+        return $this->receipt->where('slug',$slug)->get();
+    }
+
     public function create($title, $thumbnail, $description, $slug, $user_id)
     {
         return $this->receipt->create([

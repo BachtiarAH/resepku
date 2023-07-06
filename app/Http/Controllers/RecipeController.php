@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
@@ -9,25 +10,29 @@ use App\Repository\StepRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class RecipeController extends Controller{
+class RecipeController extends Controller
+{
     protected RecipeRepository $recipe;
     protected IngredientRepository $ingredientRepo;
     protected StepRepository $stepRepo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->recipe = new RecipeRepository();
         $this->ingredientRepo = new IngredientRepository;
         $this->stepRepo = new StepRepository;
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
-        
+
 
         return Inertia::render('Recipe/Create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         if ($request->hasFile('thumbnail')) {
             //get data from request
             $title = $request->input('title');
@@ -38,26 +43,26 @@ class RecipeController extends Controller{
             $image = $request->file('thumbnail');
 
             //save the thumbnail
-            $fileName = time().'.'.$image->getClientOriginalExtension();
+            $fileName = time() . '.' . $image->getClientOriginalExtension();
             $directory = public_path('asset/thumbnail/');
             $image->move($directory, $fileName);
 
             //store the recipe to database
-            $recipe = $this->recipe->create($title,'asset/thumbnail/'.$fileName,$description,$slug,1);
+            $recipe = $this->recipe->create($title, 'asset/thumbnail/' . $fileName, $description, $slug, 1);
 
             $idRecipe = $recipe->id;
             //store ingredient
             foreach ($ingredient as $key => $value) {
-                $this->ingredientRepo->create($value,$idRecipe);
+                $this->ingredientRepo->create($value, $idRecipe);
             }
 
             //store step
             foreach ($step as $key => $value) {
-                $this->stepRepo->create($value,$idRecipe,$key);
+                $this->stepRepo->create($value, $idRecipe, $key);
             }
 
 
-            return redirect()->back()->with('status','success');
+            return redirect()->back()->with('status', 'success');
         }
 
         dd($request);
@@ -65,5 +70,11 @@ class RecipeController extends Controller{
         return response()->json(['message' => 'No image uploaded'], 400);
     }
 
-
+    public function detail($slug)
+    {
+        $recipe = $this->recipe->getBySLug($slug);
+        $ingredient = $this->ingredientRepo->getByRecipe($recipe[0]->id);
+        $steps = $this->stepRepo->getByRecipe($recipe[0]->id);
+        return Inertia::render('Recipe/Detail', ['recipe' => $recipe, 'ingredients' => $ingredient, 'steps' => $steps]);
+    }
 }

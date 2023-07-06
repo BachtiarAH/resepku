@@ -14,7 +14,7 @@ export default function Authenticated({ user, header, children }) {
     return (
         <div className="">
             <Navbar />
-            <main className="flex justify-centerx ">
+            <main className="flex justify-center ">
                 <div className="container">{children}</div>
             </main>
             
