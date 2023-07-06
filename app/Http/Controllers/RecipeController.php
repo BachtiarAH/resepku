@@ -20,7 +20,10 @@ class RecipeController extends Controller{
         $this->stepRepo = new StepRepository;
     }
 
-    public function index() {
+    public function index(Request $request) {
+
+        
+
         return Inertia::render('Recipe/Create');
     }
 
@@ -61,4 +64,6 @@ class RecipeController extends Controller{
 
         return response()->json(['message' => 'No image uploaded'], 400);
     }
+
+
 }

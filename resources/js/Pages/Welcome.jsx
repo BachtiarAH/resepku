@@ -1,21 +1,16 @@
+import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link, Head } from "@inertiajs/react";
+import { Button } from "bootstrap";
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Welcome" />
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="..." />
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">
-                        Go somewhere
-                    </a>
-                </div>
+            <div className="d-flex justify-center">
+                <ApplicationLogo/>
+                <Link href="/login">
+                <Button className="mt-10 bg-default">Login</Button>
+                </Link>
             </div>
         </>
     );

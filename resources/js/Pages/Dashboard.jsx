@@ -1,19 +1,12 @@
+import RecipeCard from "@/Components/RecipeCard";
 import Card from "@/Components/card";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { usePage } from "@inertiajs/react";
 
-export default function Dashboard({ auth }) {
-    const items = [
-        "Apple",
-        "Banana",
-        "Orange",
-        "Mango",
-        "Strawberry",
-        "Grapes",
-        "Pineapple",
-        "Watermelon",
-        "Kiwi",
-        "Peach",
-    ];
+export default function Dashboard({ auth, recipes,user_id }) {
+    console.table(recipes);
+
+    // const {recipes} = usePage().props;
 
     return (
         <AuthenticatedLayout
@@ -28,9 +21,19 @@ export default function Dashboard({ auth }) {
 
             <div className="">
                 <div className="d-flex justify-content-beetwen flex-wrap">
-                    {items.map((item) => (
-                        <div key={item} className="col mb-4">
-                            <Card></Card>
+                    {recipes.map((item) => (
+                        <div key={item["recipe_id"]} className="col mb-4">
+                            <RecipeCard
+                                id={item["recipe_id"]}
+                                key={item["recipe_id"]}
+                                img={item["thumbnail"]}
+                                title={item["title"]}
+                                description={item["description"]}
+                                like={item["like"]}
+                                isLiked={item["liked"] == "true" ? true : false}
+                                slug={item["slug"]}
+                                userId={user_id}
+                            />
                         </div>
                     ))}
                 </div>

@@ -26,7 +26,7 @@ class RecipeRepository extends Repository
     public function getAllWithLike($idUser)
     {
         $result = $this->like->rightJoin('recipes', 'recipes.id', '=', 'likes.recipe_id')
-            ->select('likes.user_id as liked', 'recipes.id as resep_id', 'recipes.title', 'recipes.description', 'recipes.slug')
+            ->select('likes.user_id as like', 'recipes.id as recipe_id', 'recipes.title', 'recipes.description', 'recipes.slug','recipes.thumbnail')
             ->selectSub(function ($query) use ($idUser) {
                 $query->selectRaw("CASE WHEN EXISTS (SELECT 1 FROM likes WHERE likes.recipe_id = recipes.id AND user_id = $idUser) THEN 'true' ELSE 'false' END");
             }, 'liked')

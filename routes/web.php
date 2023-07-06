@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Models\Recipe;
@@ -20,25 +21,29 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
+
+    return view('welcome');
 });
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
     Route::name('recipe.')->prefix('recipe')->group(function () {
         Route::name('create.')->prefix('create')->group(function () {
             Route::get('',[RecipeController::class,'index'])->name('page');
             Route::post('store',[RecipeController::class,'store'])->name('store');
         });
+
+        Route::get('/{slug}',function ($slug) {
+            dd($slug);
+        })->name('post');
     });
 });
 
