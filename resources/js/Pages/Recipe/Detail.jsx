@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 function Detail({ recipe ,ingredients,steps}) {
     const data = recipe[0];
-    console.log(ingredients);
+    console.log(steps);
     return (
         <AuthenticatedLayout>
             <div className="d-flex justify-center flex-col">

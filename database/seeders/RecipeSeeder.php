@@ -16,7 +16,7 @@ class RecipeSeeder extends Seeder
     {
         $faker = Faker::create();
         DB::table('recipes')->insert([
-            'title'=> 'resep masakaj bunda',
+            'title'=> 'Sambal jamur ala SS',
             'description' => $faker->paragraph(),
             'user_id'=>1,
             'thumbnail'=>'asset\thumbnail\image 1.png',
@@ -24,7 +24,7 @@ class RecipeSeeder extends Seeder
         ]);
 
         DB::table('recipes')->insert([
-            'title'=> $faker->text(),
+            'title'=> "Sambal jamur ala Bachtiar",
             'description' => $faker->paragraph(),
             'user_id'=>1,
             'thumbnail'=>'asset\thumbnail\image 1.png',

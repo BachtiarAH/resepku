@@ -20,7 +20,7 @@ class StepRepository extends Repository
 
     public function getByRecipe($recipeid)
     {
-        return $this->step->where('recipe_id', 13)
+        return $this->step->where('recipe_id', $recipeid)
             ->orderBy('order')
             ->get();
     }
