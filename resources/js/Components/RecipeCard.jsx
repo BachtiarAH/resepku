@@ -13,6 +13,7 @@ function RecipeCard({
     slug,
     userId,
 }) {
+    
     const [likeCount, setLikeCount] = useState(like);
     const [hasLiked, setHasLiked] = useState(isLiked);
     const [buttonText, setButtonText] = useState(hasLiked ? "Disukai" : "Suka");
@@ -34,6 +35,8 @@ function RecipeCard({
             .then((data) => {
                 // Handle the response data as needed
                 console.log(data);
+                setLikeCount(likeCount + 1);
+                setHasLiked(true);
                 setButtonText("Disukai");
             })
             .catch((error) => {
@@ -56,6 +59,8 @@ function RecipeCard({
             .then((data) => {
                 // Handle the response data as needed
                 console.log(data);
+                setLikeCount(likeCount - 1);
+                setHasLiked(false);
                 setButtonText("Sukai");
             })
             .catch((error) => {
@@ -73,15 +78,11 @@ function RecipeCard({
             }}
             buttonClickHandle={() => {
                 if (hasLiked) {
-                    setLikeCount(likeCount - 1);
-                    setHasLiked(false);
                     postDislike({
                         recipeId: id,
                         userId: userId,
                     });
                 } else {
-                    setLikeCount(likeCount + 1);
-                    setHasLiked(true);
                     postLike({
                         recipeId: id,
                         userId: userId,

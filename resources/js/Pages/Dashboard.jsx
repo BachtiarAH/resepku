@@ -22,6 +22,7 @@ export default function Dashboard({ auth, recipes,user_id }) {
             <div className="">
                 <div className="d-flex justify-content-beetwen flex-wrap">
                     {recipes.map((item) => (
+                        
                         <div key={item["recipe_id"]} className="col mb-4">
                             <RecipeCard
                                 id={item["recipe_id"]}

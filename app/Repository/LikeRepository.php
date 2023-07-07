@@ -16,7 +16,7 @@ class LikeRepository extends Repository
         $this->like = new Like;
     }
 
-    public function getSum($recipe_id)
+    public function getCount($recipe_id)
     {
         return $this->like->where('recipe_id', '=', $recipe_id)->count('likes.user_id');
     }

@@ -18,21 +18,26 @@ class LikeController extends Controller
 
     public function likeAction(Request $request)
     {
-            $result = $this->likeRepo->create($request->input('userId'), $request->input("recipeId"));
-            if (isset($result['messge'])) {
-                echo json_encode($result);
-            }else{
-                echo json_encode(['status'=>'success','result'=>$result]);
-            }
+        $result = $this->likeRepo->create($request->input('userId'), $request->input("recipeId"));
+        $countLike = $this->likeRepo->getCount($request->input("recipeId"));
+
+        if (isset($result['messge'])) {
+            $request->array_push(['like' => $countLike]);
+            echo json_encode($result);
+        } else {
+            echo json_encode(['status' => 'success', 'result' => $result, 'like' => $countLike]);
+        }
     }
 
     public function dislikeAction(Request $request)
     {
         $result = $this->likeRepo->delete($request->input('userId'), $request->input("recipeId"));
+        $countLike = $this->likeRepo->getCount($request->input("recipeId"));
         if (isset($result['messge'])) {
-            echo json_encode($result);
-        }else{
-            echo json_encode(['status'=>'success','result'=>$result]);
+            $request->array_push(['like' => $countLike]);
+            echo json_encode($result,);
+        } else {
+            echo json_encode(['status' => 'success', 'result' => $result, 'like' => $countLike]);
         }
     }
 }

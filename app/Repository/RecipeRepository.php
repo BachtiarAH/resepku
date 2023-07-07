@@ -23,17 +23,19 @@ class RecipeRepository extends Repository
         return $this->receipt->get();
     }
 
-    public function getAllWithLike($idUser)
+    public function getAllWithLike($userId)
     {
-        $result = $this->like->rightJoin('recipes', 'recipes.id', '=', 'likes.recipe_id')
-            ->select('likes.user_id as like', 'recipes.id as recipe_id', 'recipes.title', 'recipes.description', 'recipes.slug','recipes.thumbnail')
-            ->selectSub(function ($query) use ($idUser) {
-                $query->selectRaw("CASE WHEN EXISTS (SELECT 1 FROM likes WHERE likes.recipe_id = recipes.id AND user_id = $idUser) THEN 'true' ELSE 'false' END");
-            }, 'liked')
-            ->orderBy('recipes.id')
-            ->get();
+        // $query = "select COUNT(likes.user_id), `recipes`.`id` as `recipe_id` , `recipes`.`title`, `recipes`.`description`, `recipes`.`slug`, `recipes`.`thumbnail`, (select CASE WHEN EXISTS (SELECT 1 FROM likes WHERE likes.recipe_id = recipes.id AND user_id = 2) THEN 'true' ELSE 'false' END) as `liked` from  `recipes` LEFT join `likes` on `recipes`.`id` = `likes`.`recipe_id` GROUP BY recipes.id order by `recipes`.`id` asc;";
+        $results = $results = DB::select("
+        SELECT COUNT(likes.user_id) AS `like`, recipes.id AS recipe_id, recipes.title, recipes.description, recipes.slug, recipes.thumbnail,
+        (CASE WHEN EXISTS (SELECT 1 FROM likes WHERE likes.recipe_id = recipes.id AND user_id = $userId) THEN 'true' ELSE 'false' END) AS liked
+        FROM recipes
+        LEFT JOIN likes ON recipes.id = likes.recipe_id
+        GROUP BY recipes.id
+        ORDER BY recipes.id ASC
+    ");
 
-        return $result;
+        return $results;
     }
 
     public function getById($id)
@@ -41,8 +43,9 @@ class RecipeRepository extends Repository
         return DB::table('receipts')->where('id', $id);
     }
 
-    public function getBySLug($slug) {
-        return $this->receipt->where('slug',$slug)->get();
+    public function getBySLug($slug)
+    {
+        return $this->receipt->where('slug', $slug)->get();
     }
 
     public function create($title, $thumbnail, $description, $slug, $user_id)

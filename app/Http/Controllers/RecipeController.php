@@ -41,6 +41,9 @@ class RecipeController extends Controller
             $step = $request->input('step');
             $slug = $this->recipe->slugMaker($title);
             $image = $request->file('thumbnail');
+            $idUser = $request->user()->id;
+
+            
 
             //save the thumbnail
             $fileName = time() . '.' . $image->getClientOriginalExtension();
@@ -48,7 +51,7 @@ class RecipeController extends Controller
             $image->move($directory, $fileName);
 
             //store the recipe to database
-            $recipe = $this->recipe->create($title, 'asset/thumbnail/' . $fileName, $description, $slug, 1);
+            $recipe = $this->recipe->create($title, 'asset/thumbnail/' . $fileName, $description, $slug, $idUser);
 
             $idRecipe = $recipe->id;
             //store ingredient
