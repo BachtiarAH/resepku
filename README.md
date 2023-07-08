@@ -1,6 +1,6 @@
 # Resepku
 
-This project is to accomplice my Technical Assessment in [Metamataid](https://www.metamata.id/) as a test to take the interview session in the Internship Challenge From Home Batch 5 - Fullstack Developerrecruitment process.
+This project is to accomplice my Technical Assessment in [Metamataid](https://www.metamata.id/) as a test to take the interview session in the Internship Challenge From Home Batch 5 - Fullstack Developerrecruitment process. Using Laravel as backend and react js for the frontend.
 
 
 
